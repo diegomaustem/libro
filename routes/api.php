@@ -19,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('courses', CourseController::class);
 Route::apiResource('students', StudentController::class);
-Route::apiResource('registration', RegistrationControlle::class);
+Route::apiResource('registrations', RegistrationControlle::class);

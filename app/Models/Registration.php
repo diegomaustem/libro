@@ -9,5 +9,5 @@ class Registration extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['courses_id', 'students_id'];
+    protected $fillable = ['course_id', 'student_id'];
 }
