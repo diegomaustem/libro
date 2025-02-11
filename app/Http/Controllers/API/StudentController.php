@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
+use App\Models\Registration;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -64,9 +65,33 @@ class StudentController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(Student $student)
     {
-        //
+        $openStudentRegistration = $this->verifyOpenStudentRegistration($student->id);
+
+        if (is_object($openStudentRegistration)) {
+            return response()->json([
+                'error' => 'Conflict.',
+                'message' => "The student is open enrollment. It is necessary to close the registration for deletion.",
+            ], 409);
+        } 
+
+        try {
+            $student->delete();
+            return response()->json([
+                'message' => "Excluded student.",
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ops, The student could not be deleted. Try later!',
+            ], 500);
+        }
+    }
+
+    private function verifyOpenStudentRegistration($student)
+    {
+        $student = Registration::where('students_id', $student)->first();
+        return $student;
     }
 
     private function organizeQueryParameters($queryParams)
