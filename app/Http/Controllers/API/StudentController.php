@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreStudentRequest;
 use App\Http\Resources\StudentResource;
 use App\Models\Registration;
 use App\Models\Student;
@@ -50,19 +51,46 @@ class StudentController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
-        //
+        try {
+            $student = Student::create($request->validated());
+            return response()->json([
+                'mensagem' => 'Student inserted.',
+                'student' => new StudentResource($student) 
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ops, student cannot be inserted. Try later!',
+            ], 500);
+        }
     }
 
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        try {
+            return new StudentResource($student);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ops, query failed. Try later!',
+            ], 500);
+        }
     }
 
-    public function update(Request $request, string $id)
+    public function update(StoreStudentRequest $request, Student $student)
     {
-        //
+        try {
+            $student->update($request->validated());
+
+            return response()->json([
+                'message' => "Student updated.",
+                'curso' => new StudentResource($student)
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ops, query failed. Try later!',
+            ], 500);
+        }
     }
 
     public function destroy(Student $student)
@@ -90,7 +118,7 @@ class StudentController extends Controller
 
     private function verifyOpenStudentRegistration($student)
     {
-        $student = Registration::where('students_id', $student)->first();
+        $student = Registration::where('student_id', $student)->first();
         return $student;
     }
 
