@@ -22,6 +22,7 @@ Instruções Iniciais
 Instruções Endpoints
 
 Alunos
+
     GET – QueryParams
     
     Busca por nome: http://127.0.0.1:8000/libro/students?name=tiago
@@ -87,6 +88,8 @@ Testes Cursos
 
 2 – Testa a exclusão de um curso.
 
+Rodar os testes : php artisan test tests/Feature/CourseControllerTest.php
+
 Testes Alunos
 
 1 – Testa o retorno de um aluno.
@@ -94,3 +97,5 @@ Testes Alunos
 2 – Testa a inserção de um aluno.
 
 3 – Testa a exclusão de um aluno que possui matrícula em algum curso. 
+
+Rodar os testes: php artisan test tests/Feature/StudentControllerTest.php
