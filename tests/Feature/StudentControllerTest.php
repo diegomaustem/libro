@@ -31,7 +31,7 @@ class StudentControllerTest extends TestCase
             'name' => 'João Silva',
             'email' => 'joao.silva@example.com',
             'gender' => 'M',
-            'data_of_birth' => '11-05-2000',
+            'data_of_birth' => '2000-01-02',
         ];
 
         $response = $this->postJson('/libro/students', $data);
