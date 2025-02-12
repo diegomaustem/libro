@@ -2,19 +2,45 @@
 
 namespace Tests\Feature;
 
+use App\Http\Resources\CourseResource;
+use App\Models\Course;
+use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Mockery;
 use Tests\TestCase;
 
 class CourseControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    use RefreshDatabase;
+
+    // Test whether a list of courses is returned
+    public function testReturnsListOfCoursesWhenQueried()
     {
-        $response = $this->get('/');
+        $courses = Course::factory()->count(3)->create();
+
+        $response = $this->get('/libro/courses');
+        $response->assertStatus(200);
+
+        // Check if the response contains the created courses
+        $response->assertJson(
+            CourseResource::collection($courses)->response()->getData(true)
+        );
+    }
+
+    public function testChecksIfCourseHasBeenDeleted()
+    {
+        $course = Course::factory()->create();
+
+        $response = $this->deleteJson("/libro/courses/{$course->id}");
 
         $response->assertStatus(200);
+
+        $response->assertJson([
+            'message' => 'Excluded course.',
+        ]);
+
+        // Checks if the course has been deleted from the database
+        $this->assertDatabaseMissing('courses', ['id' => $course->id]);
     }
 }
