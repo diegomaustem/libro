@@ -4,10 +4,7 @@ namespace Tests\Feature;
 
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
-use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Mockery;
 use Tests\TestCase;
 
 class CourseControllerTest extends TestCase
