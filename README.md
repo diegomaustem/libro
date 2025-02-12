@@ -23,37 +23,58 @@ Instruções Endpoints
 
 Alunos
     GET – QueryParams
+    
     Busca por nome: http://127.0.0.1:8000/libro/students?name=tiago
+    
     Busca por email: http://127.0.0.1:8000/libro/students?email=tiago@com
+    
     Buscar por filtro: http://127.0.0.1:8000/libro/students?query=filters
+    
     A consulta por filtro, realiza uma busca exibindo o total de alunos por faixa etária,
     curso e sexo.
+    
     GET - http://127.0.0.1:8000/libro/students
+    
     GET - http://127.0.0.1:8000/libro/students/id_student
+    
     POST - http://127.0.0.1:8000/libro/students
+    
     Exemplo JSON : { "name": "Carla Holff", "email": "carla@gmail.com", "gender": "F",
     "data_of_birth": "11-05-1995" }
+    
     PUT - http://127.0.0.1:8000/libro/students/id_student
+    
     Exemplo JSON : { "name": "Carla Holff Edit", "email": "carla@gmail.com", "gender":
     "F", "data_of_birth": "11-05-1992" }
+    
     DELETE - http://127.0.0.1:8000/libro/students/id_student
     
 Cursos
+
     GET - http://127.0.0.1:8000/libro/courses
+    
     GET - http://127.0.0.1:8000/libro/courses/id_course
+    
     POST - http://127.0.0.1:8000/libro/courses
     Exemplo JSON: { “title": "Math", "description": "The best course."}
+    
     PUT - http://127.0.0.1:8000/libro/courses/id_course
     Exemplo JSON: {“title": "Math Edt", “description": "The best course."}
+    
     DELETE - http://127.0.0.1:8000/libro/courses/id_course
     
 Matrículas
+
     GET - http://127.0.0.1:8000/libro/registrations
+    
     GET - http://127.0.0.1:8000/libro/registration/id_registration
+    
     POST - http://127.0.0.1:8000/libro/registrations
     Exemplo JSON:{“course_id": 9,"student_id": 8}
+    
     PUT - POST - http://127.0.0.1:8000/libro/registration/id_registration
     Exemplo JSON {"course_id": 1, "student_id": 2}
+    
     DELETE - http://127.0.0.1:8000/libro/registration/id_registration 
     
 Instruções Testes Unitários
@@ -61,10 +82,15 @@ Instruções Testes Unitários
 Foram montados dois cenários de testes para cursos e três cenários para alunos.
 
 Testes Cursos
+
 1 – Testa se o retorno da requisição é uma lista de cursos.
+
 2 – Testa a exclusão de um curso.
 
 Testes Alunos
+
 1 – Testa o retorno de um aluno.
+
 2 – Testa a inserção de um aluno.
+
 3 – Testa a exclusão de um aluno que possui matrícula em algum curso. 
