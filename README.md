@@ -53,7 +53,7 @@ Matrículas
     
 Instruções Testes Unitários
 
-Foram montados dois cenários de testes para cursos e três cenários para o aluno.
+Foram montados dois cenários de testes para cursos e três cenários para alunos.
 
 Testes Cursos
 1 – Testa se o retorno da requisição é uma lista de cursos.
