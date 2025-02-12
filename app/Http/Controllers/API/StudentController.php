@@ -147,8 +147,8 @@ class StudentController extends Controller
     {
         try {
             $students = DB::table('students')
-            ->join('registrations', 'students.id', '=', 'registrations.students_id')
-            ->join('courses', 'registrations.courses_id', '=', 'courses.id')
+            ->join('registrations', 'students.id', '=', 'registrations.student_id')
+            ->join('courses', 'registrations.course_id', '=', 'courses.id')
             ->selectRaw('
                 courses.title AS course_title,
                 students.gender,
