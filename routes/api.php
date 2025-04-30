@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\CourseController;
+use App\Http\Controllers\API\EnrolledPerCourseController;
 use App\Http\Controllers\API\RegistrationControlle;
 use App\Http\Controllers\API\StudentController;
 use Illuminate\Http\Request;
@@ -20,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('courses', CourseController::class);
 Route::apiResource('students', StudentController::class);
 Route::apiResource('registrations', RegistrationControlle::class);
+Route::apiResource('enrolledPerCourse', EnrolledPerCourseController::class);
