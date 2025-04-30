@@ -58,7 +58,7 @@ class CourseController extends Controller
             return response()->json([
                 'message' => "Updated course.",
                 'course' => new CourseResource($course)
-            ]);
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, the course has not been updated. Try later!',
