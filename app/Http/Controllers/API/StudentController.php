@@ -15,19 +15,23 @@ class StudentController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->query('query') === 'filters') {
+        if ($request->has('query') && $request->query('query') === 'filters') {
             $students = $this->getStudentsByFilters();
             return response()->json($students);
-        } 
+        }
 
-        $queryParams = $request->query();
+        if (!empty($request->query())) {
+            $fieldsQuery = $this->organizeQueryParameters($request->query());
 
-        if (!empty($queryParams)) {
-            $query = $this->organizeQueryParameters($queryParams);
-
-            if(!is_null($query)) {
+            if(!is_null($fieldsQuery)) {
                 try {
-                    $students = Student::where($query['field'], 'ILIKE', '%' .$query['parameter']. '%')->get();
+                    $query = Student::query();
+
+                    foreach ($fieldsQuery as $filter) {
+                        $query->orWhere($filter['field'], 'ILIKE', '%' . $filter['parameter'] . '%');
+                    }
+
+                    $students = $query->get();
                     return StudentResource::collection($students);
                 } catch (\Throwable $th) {
                     return response()->json([
@@ -85,7 +89,7 @@ class StudentController extends Controller
             return response()->json([
                 'message' => "Student updated.",
                 'curso' => new StudentResource($student)
-            ]);
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
@@ -124,23 +128,12 @@ class StudentController extends Controller
 
     private function organizeQueryParameters($queryParams)
     {
-        $fieldsQuery = [];
+        $fieldsQuery = array_filter([
+            Arr::get($queryParams, 'name') ? ['field' => 'name', 'parameter' => $queryParams['name']] : null,
+            Arr::get($queryParams, 'email') ? ['field' => 'email', 'parameter' => $queryParams['email']] : null
+        ]);
 
-        if(Arr::get($queryParams, 'name')) {
-            $fieldsQuery['field'] = 'name';
-            $fieldsQuery['parameter'] = $queryParams['name'];
-
-            return $fieldsQuery;
-        }
-
-        if(Arr::get($queryParams, 'email')) {
-            $fieldsQuery['field'] = 'email';
-            $fieldsQuery['parameter'] = $queryParams['email'];
-            
-            return $fieldsQuery;
-        }
-
-        return null;
+        return !empty($fieldsQuery) ? $fieldsQuery : null;
     }
 
     private function getStudentsByFilters()
