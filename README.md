@@ -84,7 +84,7 @@ Matrículas
 
 Listagem de alunos por curso
 
-    GET - http://127.0.0.1:8000/libro/enrolledPerCourse
+    GET - http://127.0.0.1:8000/libro/enrolledPerCourse/id_course
 
 Instruções Testes Unitários
 
