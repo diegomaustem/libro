@@ -82,6 +82,10 @@ Matrículas
 
     DELETE - http://127.0.0.1:8000/libro/registration/id_registration
 
+Listagem de alunos por curso
+
+    GET - http://127.0.0.1:8000/libro/enrolledPerCourse
+
 Instruções Testes Unitários
 
 Foram montados dois cenários de testes para cursos e três cenários para alunos.

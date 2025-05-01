@@ -17,8 +17,8 @@ class RegistrationFactory extends Factory
     public function definition(): array
     {
         return [
-            'course_id' => fake()->randomNumber(),
-            'student_id' => fake()->randomNumber()
+            'course_id' => fake()->numberBetween(1, 12),
+            'student_id' => fake()->numberBetween(1, 25)
         ];
     }
 }
