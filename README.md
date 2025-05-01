@@ -17,7 +17,7 @@ Instruções Iniciais
 ● php artisan key:generate
 
 6 - Execute as migrations.
-● php artisan migrate
+● php artisan migrate:fresh --seed
 
 6 - Sirva a aplicação.
 ● php artisan serve
