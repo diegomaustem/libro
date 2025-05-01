@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Models\Registration;
-use Illuminate\Http\Request;
 
 class EnrolledPerCourseController extends Controller
 {
