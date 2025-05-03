@@ -34,6 +34,7 @@ class EnrolledPerCourseController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
+                'code' => 'ENROLLED_PER_COURSE_ERROR'
             ], 500);
         }
     }
