@@ -19,6 +19,7 @@ class CourseController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
+                'code' => 'COURSES_SHOW_ALL_ERROR'
             ], 500);
         }  
     }
@@ -35,6 +36,7 @@ class CourseController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, the course has not been added. Try later!',
+                'code' => 'COURSE_ADD_ERROR'
             ], 500);
         }
     }
@@ -46,6 +48,7 @@ class CourseController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
+                'code' => 'COURSE_SHOW_ERROR'
             ], 500);
         }
     }
@@ -62,15 +65,16 @@ class CourseController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, the course has not been updated. Try later!',
+                'code' => 'COURSE_UPDATE_ERROR'
             ], 500);
         }
     }
 
     public function destroy(Course $course)
     {
-        $verifyIfThereAreStudentsEnrolledInCourse = $this->verifyIfThereAreStudentsEnrolledInCourse($course->id);
+        $verifyStudentsEnrolledInCourse = Registration::where('course_id', $course->id)->exists();
 
-        if (is_object($verifyIfThereAreStudentsEnrolledInCourse)) {
+        if ($verifyStudentsEnrolledInCourse) {
             return response()->json([
                 'error' => 'Conflict.',
                 'message' => "The course has students enrolled. It is necessary to close the registration for deletion.",
@@ -85,13 +89,8 @@ class CourseController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, The course could not be deleted. Try later!',
+                'code' => 'COURSE_DELETE_ERROR'
             ], 500);
         }
-    }
-
-    private function verifyIfThereAreStudentsEnrolledInCourse($course)
-    {
-        $course = Registration::where('course_id', $course)->first();
-        return $course;
     }
 }
