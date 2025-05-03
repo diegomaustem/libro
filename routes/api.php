@@ -4,6 +4,7 @@ use App\Http\Controllers\API\CourseController;
 use App\Http\Controllers\API\EnrolledPerCourseController;
 use App\Http\Controllers\API\RegistrationControlle;
 use App\Http\Controllers\API\StudentController;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,5 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('courses', CourseController::class);
 Route::apiResource('students', StudentController::class);
 Route::apiResource('registrations', RegistrationControlle::class);
+Route::apiResource('teachers', Teacher::class);
 Route::apiResource('enrolledPerCourse', EnrolledPerCourseController::class);

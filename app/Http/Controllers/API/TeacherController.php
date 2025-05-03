@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        try {
+            $teachers = Teacher::all();
+            return response()->json($teachers);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Ops, query failed. Try later!',
+            ], 500);
+        }
     }
 
     /**
