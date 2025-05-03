@@ -139,24 +139,24 @@ class StudentController extends Controller
     private function getStudentsByFilters()
     {
         try {
-            $students = DB::table('students')
+            $students = Student::query()
             ->join('registrations', 'students.id', '=', 'registrations.student_id')
             ->join('courses', 'registrations.course_id', '=', 'courses.id')
             ->selectRaw('
                 courses.title AS course_title,
                 students.gender,
                 COUNT(*) AS student_count,
-                    CASE
-                        WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) < 15 THEN \'Alunos menores de 15 anos\'
-                        WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) BETWEEN 15 AND 18 THEN \'Alunos entre 15 e 18 anos\'
-                        WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) BETWEEN 19 AND 24 THEN \'Alunos entre 19 e 24 anos\'
-                        WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) BETWEEN 25 AND 30 THEN \'Alunos entre 25 e 30 anos\'
-                        ELSE \'Alunos maiores de 30 anos\'
-                    END AS age_range
-                ')
+                CASE
+                    WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) < 15 THEN \'Alunos menores de 15 anos\'
+                    WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) BETWEEN 15 AND 18 THEN \'Alunos entre 15 e 18 anos\'
+                    WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) BETWEEN 19 AND 24 THEN \'Alunos entre 19 e 24 anos\'
+                    WHEN DATE_PART(\'year\', AGE(students.data_of_birth)) BETWEEN 25 AND 30 THEN \'Alunos entre 25 e 30 anos\'
+                    ELSE \'Alunos maiores de 30 anos\'
+                END AS age_range
+            ')
             ->groupBy('courses.title', 'students.gender', 'age_range')
             ->get();
-
+        
         return $students;
            
         } catch (\Throwable $th) {
