@@ -35,12 +35,12 @@ class StudentController extends Controller
                     return StudentResource::collection($students);
                 } catch (\Throwable $th) {
                     return response()->json([
-                        'error' => 'Ops, falha na consulta.',
+                        'error' => 'Ops, query failure.',
                     ], 500);
                 }
             } else {
                 return response()->json([
-                    'error' => 'Parâmetro não encontrado.'
+                    'error' => 'Parameter not found.'
                 ], 400);
             }
         }
@@ -50,7 +50,8 @@ class StudentController extends Controller
             return StudentResource::collection($students);  
         } catch (\Throwable $th) {
             return response()->json([
-                'error' => 'Ops, falha na consulta.',
+                'error' => 'Ops, query failure.',
+                'code' => 'STUDENT_SHOW_ALL_ERROR'
             ], 500);
         }
     }
@@ -66,6 +67,7 @@ class StudentController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, student cannot be inserted. Try later!',
+                'code' => 'STUDENT_ADD_ERROR'
             ], 500);
         }
     }
@@ -77,6 +79,7 @@ class StudentController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
+                'code' => 'STUDENT_SHOW_ERROR'
             ], 500);
         }
     }
@@ -93,15 +96,16 @@ class StudentController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
+                'code' => 'STUDENT_UPDATE_ERROR'
             ], 500);
         }
     }
 
     public function destroy(Student $student)
     {
-        $openStudentRegistration = $this->verifyOpenStudentRegistration($student->id);
+        $verifyStudentRegistration = Registration::where('student_id', $student->id)->exits();
 
-        if (is_object($openStudentRegistration)) {
+        if ($verifyStudentRegistration) {
             return response()->json([
                 'error' => 'Conflict.',
                 'message' => "The student is open enrollment. It is necessary to close the registration for deletion.",
@@ -116,14 +120,9 @@ class StudentController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, The student could not be deleted. Try later!',
+                'code' => 'STUDENT_DELETE_ERROR'
             ], 500);
         }
-    }
-
-    private function verifyOpenStudentRegistration($student)
-    {
-        $student = Registration::where('student_id', $student)->first();
-        return $student;
     }
 
     private function organizeQueryParameters($queryParams)
@@ -161,7 +160,7 @@ class StudentController extends Controller
            
         } catch (\Throwable $th) {
             return response()->json([
-                'error' => 'Ops, falha na consulta.',
+                'error' => 'Ops, query failure.',
             ], 500);
         }
         
