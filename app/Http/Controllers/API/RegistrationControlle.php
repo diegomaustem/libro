@@ -18,6 +18,7 @@ class RegistrationControlle extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failde. Try later!',
+                'code' => 'REGISTRATION_SHOW_ALL_ERROR'
             ], 500);
         }
     }
@@ -34,6 +35,7 @@ class RegistrationControlle extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, registration cannot be inserted. Try later!',
+                'code' => 'REGISTRATION_ADD_ERROR'
             ], 500);
         }
     }
@@ -45,6 +47,7 @@ class RegistrationControlle extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
+                'code' => 'REGISTRATION_SHOW_ERROR'
             ], 500);
         }
     }
@@ -61,6 +64,7 @@ class RegistrationControlle extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, query failed. Try later!',
+                'code' => 'REGISTRATION_UPDATE_ERROR'
             ], 500);
         }
     }
@@ -75,6 +79,7 @@ class RegistrationControlle extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Ops, The registration could not be deleted. Try later!',
+                'code' => 'REGISTRATION_DELETE_ERROR'
             ], 500);
         }
     }
