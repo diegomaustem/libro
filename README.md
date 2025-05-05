@@ -61,10 +61,10 @@ Cursos
     GET - http://127.0.0.1:8000/libro/courses/id_course
 
     POST - http://127.0.0.1:8000/libro/courses
-    Exemplo JSON: { “title": "Math", "description": "The best course."}
+    Exemplo JSON: { "title": "Math", "description": "The best course."}
 
-    PUT - http://127.0.0.1:8000/libro/courses/id_course
-    Exemplo JSON: {“title": "Math Edt", “description": "The best course."}
+    PATCH - http://127.0.0.1:8000/libro/courses/id_course
+    Exemplo JSON: {"title": "Math Edt", “description": "The best course."}
 
     DELETE - http://127.0.0.1:8000/libro/courses/id_course
 

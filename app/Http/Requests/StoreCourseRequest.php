@@ -22,8 +22,8 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'required|max:115|regex:/^[^0-9]*$/',
-            'description' => 'max:255' 
+            'title'       => 'sometimes|required|max:115|regex:/^[^0-9]*$/',
+            'description' => 'sometimes|max:255' 
         ];
     }
 

@@ -56,10 +56,14 @@ class CourseController extends Controller
     public function update(StoreCourseRequest $request, Course $course)
     {
         try {
-            $course->update($request->validated());
+            $course->fill($request->validated());
+
+            $course->isDirty() ? $course->save() : null;
 
             return response()->json([
-                'message' => "Updated course.",
+                'message' => $course->wasChanged() 
+                    ? 'Course updated.' 
+                    : 'No changes detected.',
                 'course' => new CourseResource($course)
             ], 200);
         } catch (\Throwable $th) {
