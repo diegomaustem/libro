@@ -47,7 +47,7 @@ Alunos
     Exemplo JSON : { "name": "Carla Holff", "email": "carla@gmail.com", "gender": "F",
     "data_of_birth": "11-05-1995" }
 
-    PUT - http://127.0.0.1:8000/libro/students/id_student
+    PATCH - http://127.0.0.1:8000/libro/students/id_student
 
     Exemplo JSON : { "name": "Carla Holff Edit", "email": "carla@gmail.com", "gender":
     "F", "data_of_birth": "11-05-1992" }

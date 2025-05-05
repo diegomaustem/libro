@@ -87,11 +87,15 @@ class StudentController extends Controller
     public function update(StoreStudentRequest $request, Student $student)
     {
         try {
-            $student->update($request->validated());
+            $student->fill($request->validated());
+
+            $student->isDirty() ? $student->save() : null;
 
             return response()->json([
-                'message' => "Student updated.",
-                'curso' => new StudentResource($student)
+                'message' => $student->wasChanged() 
+                    ? 'Student updated.' 
+                    : 'No changes detected.',
+                'student' => new StudentResource($student)
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([

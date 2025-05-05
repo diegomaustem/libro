@@ -22,10 +22,10 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          => 'required|regex:/^[a-zA-Zà-úÀ-Ú\s\-_]+$/|max:60', 
-            'email'         => 'required|unique:students|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-            'gender'        => 'max:1|in:M,F',
-            'data_of_birth' => 'required'
+            'name'          => 'sometimes|required|regex:/^[a-zA-Zà-úÀ-Ú\s\-_]+$/|max:60', 
+            'email'         => 'sometimes|required|unique:students|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            'gender'        => 'sometimes|max:1|in:M,F',
+            'data_of_birth' => 'sometimes|required'
         ];
     }
 
