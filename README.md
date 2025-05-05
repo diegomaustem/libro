@@ -16,10 +16,13 @@ Instruções Iniciais
 5 - Gere a key da aplicação.
 ● php artisan key:generate
 
-6 - Execute as migrations.
+6 - Gerar e adicionar a chave secreta para autenticação por JWT no .env
+● php artisan jwt:secret
+
+7 - Execute as migrations.
 ● php artisan migrate:fresh --seed
 
-6 - Sirva a aplicação.
+8 - Sirva a aplicação.
 ● php artisan serve
 
 Instruções Endpoints
