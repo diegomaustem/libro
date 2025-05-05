@@ -96,7 +96,7 @@ Listagem de professores
     Exemplo JSON : { "name": "Carla Holff", "email": "carla@gmail.com",
      "phone": "048983325854","formation": "The Science", "gender": "F", "data_of_birth": "11-05-1995"}
 
-    PUT - POST - http://127.0.0.1:8000/libro/teachers/id_teacher
+    PATCH - POST - http://127.0.0.1:8000/libro/teachers/id_teacher
     Exemplo JSON : { "name": "Carla Holff", "email": "carla@gmail.com",
      "phone": "048983325854","formation": "The Science", "gender": "F", "data_of_birth": "11-05-1995"}
 

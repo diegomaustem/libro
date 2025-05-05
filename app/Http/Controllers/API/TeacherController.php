@@ -55,10 +55,14 @@ class TeacherController extends Controller
     public function update(StoreTeacherRequest $request, Teacher $teacher)
     {
         try {
-            $teacher->update($request->validated());
+            $teacher->fill($request->validated());
+
+            $teacher->isDirty() ? $teacher->save() : null;
 
             return response()->json([
-                'message' => "Updated teacher.",
+                'message' => $teacher->wasChanged() 
+                    ? 'Teacher updated successfully.' 
+                    : 'No changes detected.',
                 'teacher' => new TeacherResource($teacher)
             ], 200);
         } catch (\Throwable $th) {
