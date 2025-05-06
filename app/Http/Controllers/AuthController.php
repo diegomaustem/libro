@@ -55,16 +55,12 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            $token = $user->createToken(
-                name: 'auth_token',
-                abilities: ['*'],
-                expiresAt: now()->addHours(8)
-            );
+            $token = JWTAuth::fromUser($user);
 
             return response()->json([
                 'message' => 'User registered.',
                 'user' => $user,
-                'token' => $token->plainTextToken,
+                'token' => $token,
             ], 201);
 
         } catch(\Throwable $th) {
