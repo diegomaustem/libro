@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreRegisterRequest;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
-
     public function login(LoginRequest $request) 
     {
         $credentials = $request->validated();
@@ -67,6 +65,34 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Registration failed. Please try again.',
                 'error_code' => 'REGISTRATION_USER_ERROR'
+            ], 500);
+        }
+    }
+    
+    public function logout() 
+    {
+        try {
+            $token = JWTAuth::getToken();
+            if (!$token) {
+                return response()->json(['error' => 'Token not provided'], 401);
+            }
+
+            // Converter timestamp Unix para formato datetime
+            $expiresAt = Carbon::createFromTimestamp(JWTAuth::payload($token)->get('exp'))->toDateTimeString();
+    
+            DB::table('jwt_blacklist')->insert([
+                'token'      => (string) $token,
+                'expires_at' => $expiresAt,
+                'created_at' => now(),
+            ]);
+    
+            return response()->json([
+                'message' => 'Logout successful. Token invalidated.',
+            ], 200);
+    
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Failed to logout. Error: ' . $th->getMessage(),
             ], 500);
         }
     }
