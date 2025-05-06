@@ -3,27 +3,34 @@ Backend - API - Libro
 Instruções Iniciais
 
 1 - Clonar o projeto.
-● git clone git@github.com:diegomaustem/libro.git
+    
+    git clone git@github.com:diegomaustem/libro.git
 
 2 - Instalar o composer no projeto.
-● composer install
+    
+    composer install
 
 3 - Crie o banco.
-● CREATE DATABASE libro_db;
+    
+    CREATE DATABASE libro_db;
 
 4 - Crie e configure o arquivo .env com as credenciais do banco.
 
 5 - Gere a key da aplicação.
-● php artisan key:generate
+
+    php artisan key:generate
 
 6 - Gerar e adicionar a chave secreta para autenticação por JWT no .env
-● php artisan jwt:secret
+    
+    php artisan jwt:secret
 
 7 - Execute as migrations.
-● php artisan migrate:fresh --seed
+
+    php artisan migrate:fresh --seed
 
 8 - Sirva a aplicação.
-● php artisan serve
+    
+    php artisan serve
 
 Instruções Endpoints
 
@@ -106,23 +113,23 @@ Listagem de professores
     DELETE - http://127.0.0.1:8000/libro/teachers/id_teacher
 
 Instruções Testes Unitários
-
-Foram montados dois cenários de testes para cursos e três cenários para alunos.
+    
+    Foram montados dois cenários de testes para cursos e três cenários para alunos.
 
 Testes Cursos
 
-1 – Testa se o retorno da requisição é uma lista de cursos.
+    1 – Testa se o retorno da requisição é uma lista de cursos.
+    
+    2 – Testa a exclusão de um curso.
 
-2 – Testa a exclusão de um curso.
-
-Rodar os testes : php artisan test tests/Feature/CourseControllerTest.php
+    Rodar os testes : php artisan test tests/Feature/CourseControllerTest.php
 
 Testes Alunos
 
-1 – Testa o retorno de um aluno.
-
-2 – Testa a inserção de um aluno.
-
-3 – Testa a exclusão de um aluno que possui matrícula em algum curso.
-
-Rodar os testes: php artisan test tests/Feature/StudentControllerTest.php
+    1 – Testa o retorno de um aluno.
+    
+    2 – Testa a inserção de um aluno.
+    
+    3 – Testa a exclusão de um aluno que possui matrícula em algum curso.
+    
+    Rodar os testes: php artisan test tests/Feature/StudentControllerTest.php
